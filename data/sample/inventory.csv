@@ -1,0 +1,10 @@
+pharmacy_id,medicine_name,medicine_code,quantity,expiry_date,status,storage_type,unit_cost
+P001,Amoxicillin 500mg,MED001,10,2026-07-30,shortage,normal,4.50
+P002,Amoxicillin 500mg,MED001,50,2026-09-15,surplus,normal,4.50
+P003,Paracetamol 500mg,MED002,100,2026-10-10,surplus,normal,1.20
+P004,Paracetamol 500mg,MED002,25,2026-08-01,shortage,normal,1.20
+P005,Insulin,MED003,20,2026-06-15,surplus,cold_chain,18.00
+P001,Ibuprofen 200mg,MED004,40,2026-08-20,surplus,normal,2.10
+P003,Ibuprofen 200mg,MED004,15,2026-07-25,shortage,normal,2.10
+P004,Amoxicillin 500mg,MED001,5,2026-06-05,surplus,normal,4.50
+P005,Paracetamol 500mg,MED002,10,2026-06-30,shortage,normal,1.20
