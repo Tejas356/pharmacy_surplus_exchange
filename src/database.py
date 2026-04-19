@@ -126,3 +126,52 @@ def load_surplus_thresholds(db_path: str = "data/processed/pharmacy_exchange.db"
         ])
     conn.close()
     return df
+
+def create_users_table(db_path: str = "data/processed/pharmacy_exchange.db"):
+    conn = get_connection(db_path)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            full_name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            password_hash TEXT NOT NULL,
+            role TEXT NOT NULL,
+            pharmacy_id TEXT
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+
+def insert_user(full_name: str, email: str, password_hash: str, role: str, pharmacy_id: str = None,
+                db_path: str = "data/processed/pharmacy_exchange.db"):
+    conn = get_connection(db_path)
+    conn.execute("""
+        INSERT INTO users (full_name, email, password_hash, role, pharmacy_id)
+        VALUES (?, ?, ?, ?, ?)
+    """, (full_name, email, password_hash, role, pharmacy_id))
+    conn.commit()
+    conn.close()
+
+
+def get_user_by_email(email: str, db_path: str = "data/processed/pharmacy_exchange.db"):
+    conn = get_connection(db_path)
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT id, full_name, email, password_hash, role, pharmacy_id
+        FROM users
+        WHERE email = ?
+    """, (email,))
+    row = cur.fetchone()
+    conn.close()
+    return row
+
+
+def load_all_users(db_path: str = "data/processed/pharmacy_exchange.db") -> pd.DataFrame:
+    conn = get_connection(db_path)
+    try:
+        df = pd.read_sql_query("SELECT id, full_name, email, role, pharmacy_id FROM users", conn)
+    except Exception:
+        df = pd.DataFrame(columns=["id", "full_name", "email", "role", "pharmacy_id"])
+    conn.close()
+    return df
