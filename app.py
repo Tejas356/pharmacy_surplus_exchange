@@ -8,7 +8,7 @@ from src.optimizer import optimize_transfers
 from src.recommend import build_recommendation_messages
 
 
-st.set_page_config(page_title="Pharmacy Surplus Exchange", layout="wide")
+st.set_page_config(page_title="NHS Pharmacy Surplus Exchange", layout="wide")
 
 st.title("NHS Pharmacy Surplus Exchange MVP")
 st.write("Identify surplus medicine transfer opportunities between pharmacies.")
