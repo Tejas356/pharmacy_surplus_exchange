@@ -8,3 +8,6 @@ P001,Ibuprofen 200mg,MED004,40,2026-08-20,surplus,normal,2.10
 P003,Ibuprofen 200mg,MED004,15,2026-07-25,shortage,normal,2.10
 P004,Amoxicillin 500mg,MED001,5,2026-06-05,surplus,normal,4.50
 P005,Paracetamol 500mg,MED002,10,2026-06-30,shortage,normal,1.20
+P001,Levothyroxine 25mcg,MED005,20,2026-09-10,surplus,normal,1.50
+P002,Levothyroxine 50mcg,MED006,30,2026-10-05,surplus,normal,1.80
+P003,Levothyroxine 100mcg,MED007,10,2026-08-15,shortage,normal,2.10
