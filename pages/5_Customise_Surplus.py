@@ -10,6 +10,21 @@ from src.database import (
     delete_surplus_threshold,
 )
 
+from src.auth import init_auth, require_role, get_current_user, logout_user
+
+init_auth()
+require_role(["super_admin", "manager"])
+
+user = get_current_user()
+st.sidebar.success(f"Logged in as: {user['full_name']}")
+st.sidebar.write(f"Role: {user['role']}")
+if user["pharmacy_id"]:
+    st.sidebar.write(f"Pharmacy: {user['pharmacy_id']}")
+
+if st.sidebar.button("Logout"):
+    logout_user()
+    st.rerun()
+
 st.set_page_config(page_title="Customise Surplus", layout="wide")
 
 st.title("Customise Surplus Alerts")
@@ -23,6 +38,14 @@ pharmacies = load_pharmacies("data/sample/pharmacies.csv")
 inventory = load_inventory("data/sample/inventory.csv")
 normalized_inventory = normalize_inventory(inventory)
 eligible_inventory = filter_eligible_inventory(normalized_inventory, min_days_to_expiry=5)
+
+user = get_current_user()
+
+# Restrict data based on role
+if user["role"] != "super_admin" and user["pharmacy_id"]:
+    eligible_inventory = eligible_inventory[
+        eligible_inventory["pharmacy_id"] == user["pharmacy_id"]
+    ]
 
 inventory_with_pharmacy = eligible_inventory.merge(pharmacies, on="pharmacy_id", how="left")
 
